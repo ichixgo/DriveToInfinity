@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
+        <!--<link rel="stylesheet" type="text/css" href="css/index.css" />-->
+        <link rel="stylesheet" type="text/css" href="css/fw/jquery.mobile-1.4.0-rc.1.css" />
+        <link rel="stylesheet" type="text/css" href="css/main.css" />
+        <link rel="stylesheet" type="text/css" href="css/fw/careMenu.css" />
+        <title>CareMenu</title>
+
+        <!-- PhoneGap (Mobile) -->
+        <script type="text/javascript" src="phonegap.js"></script>
+
+        <!-- PhoneGap (Desktop Debugging) -->
+
+        <!--<script type="text/javascript" src="debug/phonegap-desktop.js"></script>
+
+
+        <!-- jQuery (Mobile) Debug -->
+        <script type="text/javascript" src="js/fw/jquery-2.0.3.js"></script>
+        <script type="text/javascript" src="js/fw/jquery.mobile-1.4.0-rc.1.js"></script>
+
+        <!-- jQuery (Mobile) Production -->
+        <!--
+        <script type="text/javascript" src="js/fw/jquery-2.0.3.min.js"></script>
+        <script type="text/javascript" src="js/fw/jquery.mobile-1.4.0-rc.1.min.js"></script>
+        -->
+
+        <!-- Application scripts -->
+        <script type="text/javascript" src="js/module/login.js"></script>
+        <script type="text/javascript" src="js/module/main.js"></script>
+        <script type="text/javascript" src="js/module/tourSelect.js"></script>
+        <script type="text/javascript" src="js/module/tour.js"></script>
+        <script type="text/javascript" src="js/core.js"></script>
+        <script type="text/javascript" src="js/config.js"></script>
+        <script type="text/javascript" src="js/constants.js"></script>
+        <script type="text/javascript" src="js/out.js"></script>
+        <script type="text/javascript" src="js/listener.js"></script>
+    </head>
+    <body>
+        <div data-role="page" id="login">
+            <div id="loginHeader" data-role="header">
+                <h1>CareMenu</h1>
+            </div>
+            <div data-role="content">
+                <h1>Willkommen bei CareMenu.</h1>
+                <center><img class="mealPic" src="img/careMenu.png"></center>
+                <form>
+                    <input type="text" name="username" id="username" placeholder="Username" value="" data-clear-btn="true">
+                    <input type="password" name="password" id="password" placeholder="Password" value="" autocomplete="off">
+                </form>
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <a href="#" data-role="button" data-icon="delete" id="clearB">Clear</a>
+                    </div>
+                    <div class="ui-block-b">
+                        <a href="#" data-role="button" data-icon="check" id="loginB">Login</a>
+                    </div>
+                </div>
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <a href="#" data-role="button" data-icon="check" id="testData">Daten vom Server abrufen</a>
+                    </div>
+                    <div class="ui-block-b">
+                        <a href="#" data-role="button" data-icon="delete" id="clearData">Daten löschen</a>
+                    </div>
+                </div>
+                <div>
+
+                </div>
+            </div>
+        </div>
+
+        <div data-role="page" id="tourSelect">
+            <div id="tourSelectHeader" data-role="header" data-position="fixed">
+                <a href="#" data-role="button" data-icon="power" id="logout" data-iconpos="notext"></a>
+                <h1>Tourauswahl</h1>
+                <a href="#" data-role="button" data-icon="refresh" id="refreshTours" data-iconpos="notext"></a>
+            </div>
+            <div data-role="content">
+                <ul data-role="listview" id="tours">
+                </ul>
+            </div>
+            <div class="center" data-role="footer" data-position="fixed" data-id="footNav">
+                </div>
+            </div>
+        </div>
+
+        <div data-role="page" id="main">
+            <div id="mainHeader" data-role="header"  data-id="header" data-position="fixed" data-tap-toggle="false">
+                <a href="#" data-role="button" data-icon="carat-l" id="backMain" data-iconpos="notext"></a>
+                <h1></h1>
+                <a href="#" data-role="button" data-icon="refresh" id="refreshMain" data-iconpos="notext"></a>
+            </div>
+
+            <div data-role="content" id="overview" style="display: none;">
+                <div class="buttons first">
+                    <a class="cargoButton" id="mainCargo" href=""><img src="img/shop-black-01.png" /></a>
+                    <a class="keyButton" id ="mainKey" href=""><img src="img/lock-black-01.png" /></a>
+                </div>
+                <div class="buttons">
+                    <a class="tourButton" id="mainTour" href=""><img src="img/action-black-01.png" /></a>
+                    <a class="mapButton" id="mainMap" href=""><img src="img/location-black-01.png" /></a>
+                </div>
+            </div>
+
+            <div data-role="content" id="cargo" style="display: none;">
+                <h1>Verladeliste</h1>
+                <div data-role="collapsible-set">
+                    <div data-role="collapsible" id="sortMeals">
+                        <h2>Nach Gericht-(Nr.)</h2>
+                        <ul data-role="listview">
+                            <li>Gericht 1<span class="ui-li-count">30</span></li>
+                            <li>Gericht 2<span class="ui-li-count">4</span></li>
+                            <li>Gericht 3<span class="ui-li-count">12</span></li>
+                        </ul>
+                    </div>
+                    <div data-role="collapsible" id="sortCustomers">
+                        <h2 data-inline="true">Nach Kunde</h2>
+                        <ul id="sortedCustomers" data-role="listview" data-autodividers="true">
+                            <li><a href="#">Duck, Dagobert
+                                <p class="ui-li-aside"><strong>Gericht 1</strong></p></a>
+                            </li>
+                            <li><a href="#">Duck, Donald
+                                <p class="ui-li-aside"><strong>Gericht 2</strong></p></a>
+                            </li>
+                            <li><a href="#">Einstein, Albert
+                                <p class="ui-li-aside"><strong>Gericht 1</strong></p></a>
+                            </li>
+                            <li><a href="#">Maus, Micky
+                                <p class="ui-li-aside"><strong>Gericht 1</strong></p></a>
+                            </li>
+                            <li><a href="#">McQueen, Lightning
+                                <p class="ui-li-aside"><strong>Gericht 3</strong></p></a>
+                            </li>
+                            <li><a href="#">Mustermann, Max
+                                <p class="ui-li-aside"><strong>Gericht 2</strong></p></a>
+                            </li>
+                            <li><a href="#">Waalkes, Otto
+                                <p class="ui-li-aside"><strong>Gericht 1</strong></p></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="center">
+                <a href="#" class="center" data-role="button" data-icon="delete" data-inline="true" id="cargoStatus" data-iconpos="right">Verladen</a>
+                </div>
+            </div>
+
+            <div data-role="content" id="mealDetail" style="display: none;">
+                <h1>Gericht 1</h1>
+                <center><img class="mealPic" src="img/Essen%202.jpg"></center>
+                <h3>Schnitzel mit Pommes</h3>
+            </div>
+
+            <div data-role="content" id="keys" style="display: none;">
+                <h1>Benötigte Schlüssel</h1>
+                <ul data-role="listview" data-inset="true" id="keyList">
+                    <li><a href="#">Schlüssel 1</a></li>
+                    <li><a href="#">Schlüssel 5</a></li>
+                    <li><a href="#">Schlüssel 13</a></li>
+                    <li><a href="#">Schlüssel 20</a></li>
+                    <li><a href="#">Schlüssel 22</a></li>
+                </ul>
+            </div>
+
+            <div data-role="content" id="keyDetail" style="display: none;">
+                <h1>Schlüssel 1</h1>
+                <ul data-role="listview" data-inset="true">
+                    <li>Herr</li>
+                    <li>Max Mustermann</li>
+                    <li>Geldspeicher 1</li>
+                    <li>12345 Entenhausen</li>
+                </ul>
+            </div>
+
+            <div data-role="content" id="tour" style="display: none;">
+                <ol data-role="listview" data-filter="true" data-filter-placeholder="Kunden suchen..." id="customerList" data-split-icon="comment">
+                    <li><a href="#"><h2>Duck, Dagobert</h2>
+                        <p>Geldspeicher 1, 12345 Entenhausen</p>
+                        <p class="ui-li-aside"><strong>Gericht 1</strong></p>
+                        </a></li>
+                    <li><a href="#"><h2>Waalkes, Otto</h2>
+                        <p>Geldspeicher 1, 12345 Entenhausen</p>
+                        <p class="ui-li-aside"><strong>Gericht 1</strong></p>
+                    </a></li>
+                    <li><a href="#"><h2>Duck, Donald</h2>
+                        <p>Geldspeicher 1, 12345 Entenhausen</p>
+                        <p class="ui-li-aside ui-li-aside-center"><strong>Gericht 2</strong></p>
+                        </a></li>
+                    <li><a href="#">McQueen, Lightning
+                        <p class="ui-li-aside"><strong>Gericht 3</strong></p>
+                    </a></li>
+                    <li><a href="#">Einstein, Albert
+                        <p class="ui-li-aside"><strong>Gericht 1</strong></p>
+                        </a></li>
+                    <li><a href="#">Mustermann, Max
+                        <p class="ui-li-aside"><strong>Gericht 2</strong></p>
+                        </a></li>
+                    <li><a href="#">Maus, Micky
+                        <p class="ui-li-aside"><strong>Gericht 1</strong></p>
+                    </a></li>
+                </ol>
+            </div>
+
+            <div data-role="content" id="tourDetail" style="display: none;">
+                <ul data-role="listview" data-inset="true" id="customerData">
+                    <li>Herr</li>
+                    <li>Max Mustermann</li>
+                    <li>Geldspeicher 1</li>
+                    <li>12345 Entenhausen</li>
+                </ul>
+                <a href="#" data-role="button" id="markDelivered" data-icon="delete">Ausgeliefert</a>
+                <a href="#" data-role="button" id="call" data-icon="phone">Anrufen</a>
+                <a href="#" data-role="button" id="takeNote" data-icon="edit">Bemerkung</a>
+                <a href="#" data-role="button" id="showOnMap" data-icon="navigation">Auf der Karte</a>
+            </div>
+
+            <div data-role="content" id="noteDetail" style="display: none;">
+                <label for="note">Notiz:</label>
+                <textarea name="textarea" id="note" data-clear-btn="true" placeholder="Hier können Sie eine Notiz erfassen, um Besonderheiten wie bspw. ein Nichtantreffen des Kunden festzuhalten."></textarea>
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <a href="#" data-role="button" data-icon="delete" id="clearN">Abbrechen</a>
+                    </div>
+                    <div class="ui-block-b">
+                        <a href="#" data-role="button" data-icon="check" id="saveN">Speichern</a>
+                    </div>
+                </div>
+            </div>
+
+
+            <div data-role="content" id="map" style="display: none;">
+            </div>
+            <!--<div data-role="footer" id="mainFooter" data-position="fixed" data-id="footNav" data-tap-toggle="false">
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#" data-role="button" id="cargoB" data-icon="shop">Ladung</a></li>
+                        <li><a href="#" data-role="button" id="keysB" data-icon="lock">Schlüssel</a></li>
+                        <li><a href="#" data-role="button" id="tourB" data-icon="action">Tour</a></li>
+                        <li><a href="#" data-role="button" id="mapB" data-icon="location">Karte</a></li>
+                    </ul>
+                </div>
+            </div>-->
+    </body>
+</html>
